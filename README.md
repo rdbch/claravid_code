@@ -1,4 +1,4 @@
-# ClaraVId
+# ClaraVid
 This repository will contain the code for handling ClaraVid data and for computing the Delentropic Scene Profile of a given scene.
 As the publication is currently under peer review, we plan to release the data once the review process is complete.
 
