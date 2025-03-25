@@ -6,6 +6,8 @@ As the publication is currently under peer review, we plan to release the data o
 
 # Bibtex
 If you found this work useful, please cite us as:
+
+```
 @misc{beche2025claravidholisticscenereconstruction,
       title={ClaraVid: A Holistic Scene Reconstruction Benchmark From Aerial Perspective With Delentropy-Based Complexity Profiling}, 
       author={Radu Beche and Sergiu Nedevschi},
@@ -15,3 +17,4 @@ If you found this work useful, please cite us as:
       primaryClass={cs.CV},
       url={https://arxiv.org/abs/2503.17856}, 
 }
+```
