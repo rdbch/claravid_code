@@ -11,13 +11,10 @@ As the publication is currently under peer review, we plan to release the data o
 If you found this work useful, please cite us as:
 
 ```
-@misc{beche2025claravidholisticscenereconstruction,
-      title={ClaraVid: A Holistic Scene Reconstruction Benchmark From Aerial Perspective With Delentropy-Based Complexity Profiling}, 
-      author={Radu Beche and Sergiu Nedevschi},
-      year={2025},
-      eprint={2503.17856},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV},
-      url={https://arxiv.org/abs/2503.17856}, 
+@misg{beche2025claravid,
+  title={ClaraVid: A Holistic Scene Reconstruction Benchmark From Aerial Perspective With Delentropy-Based Complexity Profiling},
+  author={Beche, Radu and Nedevschi, Sergiu},
+  journal={arXiv preprint arXiv:2503.17856},
+  year={2025}
 }
 ```
