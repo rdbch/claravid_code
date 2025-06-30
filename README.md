@@ -3,7 +3,8 @@
 
 
 This repository will contain the code for handling ClaraVid data and for computing the Delentropic Scene Profile of a given scene.
-We plan to release the data/code soon as ClaraVid has been accepted at ICCV 2025.
+We plan to release the data/code soon.
+ClaraVid has been accepted at ICCV 2025.
 
 
 
@@ -11,7 +12,7 @@ We plan to release the data/code soon as ClaraVid has been accepted at ICCV 2025
 If you found this work useful, please cite us as:
 
 ```
-@misg{beche2025claravid,
+@misc{beche2025claravid,
   title={ClaraVid: A Holistic Scene Reconstruction Benchmark From Aerial Perspective With Delentropy-Based Complexity Profiling},
   author={Beche, Radu and Nedevschi, Sergiu},
   journal={arXiv preprint arXiv:2503.17856},
