@@ -1,5 +1,8 @@
+🚧 WIP - WORK IN PROGRESS 🚧
 # ClaraVid
-[![Project Page](https://img.shields.io/badge/Project%20Page-ClaraVid-blue?style=for-the-badge&logo=github)](https://rdbch.github.io/claravid/) [![arXiv Preprint](https://img.shields.io/badge/arXiv-2503.17856-b31b1b?style=for-the-badge&logo=arXiv&logoColor=white)](https://arxiv.org/abs/2503.17856)
+[![Project Page](https://img.shields.io/badge/Project%20Page-ClaraVid-blue?style=flat&logo=github)](https://rdbch.github.io/claravid/) 
+[![arXiv Preprint](https://img.shields.io/badge/arXiv-2503.17856-b31b1b?style=flat&logo=arXiv&logoColor=white)](https://arxiv.org/abs/2503.17856)
+
 
 
 This repository will contain the code for handling ClaraVid data and for computing the Delentropic Scene Profile of a given scene.
