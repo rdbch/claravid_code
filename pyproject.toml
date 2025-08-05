@@ -19,8 +19,10 @@ dev = [
     "matplotlib",
     "open3d",
 ]
-all = [
+examples = [
     "open3d",
+    "jupyterlab",
+    "matplotlib",
 ]
 
 [project.urls]

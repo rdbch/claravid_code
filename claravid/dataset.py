@@ -1,35 +1,43 @@
 import numpy as np
 from dataclasses import dataclass, fields as dataclass_fields
 from pathlib import Path
-from typing import List, Literal
+from typing import List, Literal, Union
 from . import io_utils
 
 
 # ######################################################################################################################
 #                                                       DATA TYPES
-# ######################################################################################################################@dataclass
+# ######################################################################################################################
 @dataclass
 class ClaravidMissions:
     """ClaraVid has 8 flight missions over 5 different environments."""
     rural_1: str = '001_rural_1'
+    """Rural environment. Crop fields, electrical infrastructure, water, remote industrial area."""
     rural_2: str = '002_rural_2'
+    """Rural environment. Rural houses, logistic hub, crop fields, lake."""
     urban_1: str = '003_urban_1'
+    """Urban environment. Suburban area, medium height buildings, gas pump, parking lot mall."""
     highway_1: str = '004_highway_1'
+    """Highway environment. Butterfly connection, solar panels, wind turbines, water, boat."""
     highway_2: str = '005_highway_2'
+    """Highway environment. Freeway, intersection, hidro-plane, boats, tents, campfire, cargo area."""
     urban_2: str = '006_urban_2'
+    """Urban environment. Residential area. Construction. Pedestrians."""
     nature_1: str = '007_nature_1'
-    urban_high: str = '008_urban_dense_1'
+    """Nature environment. Forest, lakes, tents, comm towers."""
+    urban_high_1: str = '008_urban_dense_1'
+    """Urban Dense environment. High buildings, mall, pedestrians, playgrounds."""
 
 
 @dataclass
 class ClaravidAltitude:
     """ClaraVid collects simultaneous data at 3 different altitudes and pitch angles."""
     low: str = '45deg_low'
-    """Low altitude, typically 45-55m."""
+    """Low altitude, 45-55m."""
     mid: str = '55deg_mid'
-    """Mid altitude, typically 55-65m."""
+    """Mid altitude, 55-65m."""
     high: str = '90deg_high'
-    """High altitude, typically 65-75m."""
+    """High altitude, 65-75m."""
 
 
 @dataclass
@@ -122,12 +130,13 @@ class ClaravidDataset:
         """
         Code interface for ClaraVid dataset. Allows to select missions, fields, altitude and direction.
 
-        :param root: root of ClaraVid dataset
-        :param missions: see ClaravidMissions
-        :param altitude: see ClaravidAltitude
-        :param direction: see ClaravidGridDirection
-        :param fields: see ClaravidDataTypes
-        :param paths_func: function to get/build paths
+        Args:
+            root: root directory of the ClaraVid dataset.
+            missions: list of missions to load, see ClaravidMissions.
+            altitude: list of altitudes to load, see ClaravidAltitude.
+            direction: list of directions to load, see ClaravidGridDirection.
+            fields: list of fields to load, see ClaravidDataTypes.
+            paths_func: method to get paths to the dataset files.
         """
         super().__init__()
 
@@ -161,13 +170,15 @@ class ClaravidDataset:
         """
         Get paths to all files in the dataset based on missions, fields, altitude and direction.
         Typically you will override this method to customize the dataset or load just parts of it.
+        Args:
+            root: directory with the ClaraVid dataset.
+            missions: list of missions to load, see ClaravidMissions.
+            fields: list of fields to load, see ClaravidDataTypes.
+            viewpoint_altitude:list of altitudes to load, see ClaravidAltitude.
+            viewpoint_direction: list of altitude and direction to load, see ClaravidGridDirection.
 
-        :param root: root of ClaraVid
-        :param missions: see ClaravidMissions; ClaraVid has 8 flight missions
-        :param fields: fields to load, see ClaravidDataTypes
-        :param viewpoint_altitude:  see ClaravidAltitude
-        :param viewpoint_direction:
-        :return: a list of dictionaries with paths to files in the dataset
+        Returns:
+            list of dictionaries with paths to the dataset files.
         """
         path_list = []
 
@@ -254,9 +265,19 @@ class ClaravidDataset:
         """Intrinsics matrix for simple pinhole. 4032x3024 @ HFov 75 deg."""
         return self.K.copy()
 
-    @staticmethod
-    def read_pcl(pcl_path):
-        import open3d as o3d
-        pcl = o3d.io.read_point_cloud(pcl_path)
+    def read_all_extrinsics(self) -> np.ndarray:
+        """Read all extrinsics."""
+        assert len(self.missions) == 1, "This method is only for single mission datasets."
+        extrinsics_list = []
+        for item in self.path_list:
+            path = item['extrinsics']
+            extrinsics = io_utils.read_extrinsics(path)
+            extrinsics_list.append(extrinsics)
+        return np.array(extrinsics_list)
 
+    @staticmethod
+    def read_pcl(pcl_path: Union[str, Path]):
+        """Open3D import is slow and also adds it as dependency."""
+        import open3d as o3d
+        pcl = o3d.io.read_point_cloud(str(pcl_path))
         return pcl
