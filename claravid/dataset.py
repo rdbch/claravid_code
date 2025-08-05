@@ -238,6 +238,12 @@ class ClaravidDataset:
         pan_seg = io_utils.read_pan_seg(path)
         return pan_seg
 
+    def read_dynamic_mask(self, idx: int) -> np.ndarray:
+        """Read dynamic mask image. 255 - static, 0 - dynamic."""
+        path = self.path_list[idx]['dynamic_mask']
+        dynamic_mask = io_utils.read_image_gray(path)
+        return dynamic_mask
+
     def read_extrinsics(self, idx: int) -> np.ndarray:
         """Read extrinsics matrix from file."""
         path = self.path_list[idx]['extrinsics']
