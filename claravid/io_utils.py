@@ -88,14 +88,14 @@ def write_extrinsics(extrinsics: np.ndarray, path: Path) -> None:
 #                                                       DEPTH I/O
 # ######################################################################################################################
 def write_depth(depth: np.ndarray, path: Path, norm_max: float = 1000.0) -> None:
-    """Write depth image to file. Maximum value is 1000.0 [m]"""
+    """Write depth image to file. Default range [0, 1000]m"""
 
     carla_depth = serialize_depth(depth, norm_max)
     _write_img(carla_depth, path, name="Depth")
 
 
 def serialize_depth(depth: np.ndarray, norm_max: float = 1000.0) -> np.ndarray:
-    """Serialize depth image to Carla format. Maximum value is 1000.0 [m]"""
+    """Serialize depth image to Carla format. Default range [0, 1000]m"""
     _CFACT = 256 * 256 * 256 - 1
 
     depth = ((depth / norm_max) * _CFACT).astype(int).squeeze()
@@ -109,7 +109,7 @@ def serialize_depth(depth: np.ndarray, norm_max: float = 1000.0) -> np.ndarray:
 
 
 def read_depth(path: Path, norm_max: float = 1000.0) -> np.ndarray:
-    """Read depth image from file and convert to meters. Maximum value is 1000.0 [m]"""
+    """Read depth image from file and convert to meters. Default range [0, 1000]m """
     rgb = _read_img(path, name="Depth")
     rgb = rgb.astype(np.float32)
     _CFACT = 256 * 256 * 256 - 1
@@ -122,7 +122,7 @@ def read_depth(path: Path, norm_max: float = 1000.0) -> np.ndarray:
 #                                                   PAN SEG I/O
 # ######################################################################################################################
 def read_pan_seg(path: Path) -> np.ndarray:
-    """Read panoptic segmentation image from file. channels 0,1 - instance ids, channel 2 - semantic class id"""
+    """Read panoptic segmentation image from file. channel 0 - semantic class id , channels 1,2 - instance ids"""
     rgb = _read_img(path, name="Pan Seg").astype(np.int32)
 
     pan_seg = np.zeros((rgb.shape[0], rgb.shape[1], 2), dtype=np.int32)
@@ -133,9 +133,7 @@ def read_pan_seg(path: Path) -> np.ndarray:
 
 
 def serialize_pan_seg(pan_seg: np.ndarray) -> np.ndarray:
-    """Serialize panoptic segmentation image to RGB format. The first 2 channels are instance ids and the 3rd channel is
-     the class id of the semantic class.
-    """
+    """Serialize panoptic segmentation to RGB format. channel 0 - semantic class id , channels 1,2 - instance ids"""
     rgb = np.zeros((pan_seg.shape[0], pan_seg.shape[1], 3), dtype=np.uint8)
 
     instance_ids = pan_seg[..., 0]  # instance
@@ -149,6 +147,6 @@ def serialize_pan_seg(pan_seg: np.ndarray) -> np.ndarray:
 
 
 def write_pan_seg(pan_seg: np.ndarray, path: Path) -> None:
-    """Write panoptic segmentation image to file."""
+    """Write panoptic segmentation image to RGB image."""
     rgb = serialize_pan_seg(pan_seg)
     _write_img(rgb, path, name="Pan Seg")
