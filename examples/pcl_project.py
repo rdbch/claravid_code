@@ -21,7 +21,7 @@ def cam_from_world(points_w: np.ndarray, c2w: np.ndarray) -> np.ndarray:
     """
     w2c = np.linalg.inv(c2w)
     pts_h = np.hstack([points_w, np.ones((points_w.shape[0], 1), np.float32)])
-    pts_c = (w2c @ pts_h.T).T[:, :3]  # drop homogeneous coord
+    pts_c = (w2c @ pts_h.T).T[:, :3]
     return pts_c
 
 
@@ -38,7 +38,7 @@ def project(pts: np.ndarray, K: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
     """
     fx, fy, cx, cy = K[0, 0], K[1, 1], K[0, 2], K[1, 2]
 
-    d = -pts[:, 2]  # undo the z-flip  (depth > 0 in front)
+    d = -pts[:, 2] # undo the z-flip  (depth > 0 in front)
     valid = d > 0  # discard points behind the camera
 
     u = fx * pts[valid, 0] / d[valid] + cx
@@ -85,7 +85,7 @@ def pcl_project(rgb:np.array,
     pts_colors = pts_colors[valid_in_front]
     pts_colors = pts_colors[valid_in_img]
 
-    # optional drawing
+    # drawing
     rgb = Image.fromarray(rgb).resize((w, h), Image.Resampling.LANCZOS)
     rgb = np.array(rgb, dtype=np.uint8).copy()
     rgb[uv[:, 1], uv[:, 0]] = pts_colors
