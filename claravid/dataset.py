@@ -95,7 +95,7 @@ class ClaravidDataset:
         # name, class_id, has_instances, train_color
         Label('Building', 0, True, (70, 70, 70)),
         Label('Fence', 1, False, (100, 40, 40)),
-        Label('Other', 2, False, (55, 90, 80)),
+        Label('Wire', 2, False, (55, 90, 80)), # electrical wires between poles
         Label('Pedestrian', 3, True, (220, 20, 60)),
         Label('Pole', 4, False, (153, 153, 153)),
         Label('RoadLine', 5, False, (157, 234, 50)),
