@@ -1,6 +1,6 @@
 [project]
 name = "claravid"
-version = "0.1.1"
+version = "0.2.0"
 description = "Utilities for handling ClaraVid dataset"
 authors = [{ name = "Radu Beche", email = "radu.beche@cs.utcluj.ro" }]
 readme = "README.md"
@@ -9,20 +9,28 @@ license = "MIT"
 
 dependencies = [
     "numpy",
-    "pillow"
+    "pillow",
 ]
 
 [project.optional-dependencies]
-dev = [
-    "jupyterlab",
-    "pytest",
+dsp = [
+    "opencv-python",
+    "tqdm",
+    "scipy",
+    "scikit-image",
+    "seaborn",
     "matplotlib",
-    "open3d",
 ]
-examples = [
-    "open3d",
-    "jupyterlab",
+
+all = [
+    "opencv-python",
+    "tqdm",
+    "scipy",
+    "scikit-image",
+    "seaborn",
     "matplotlib",
+    "jupyterlab",
+    "open3d",
 ]
 
 [project.urls]

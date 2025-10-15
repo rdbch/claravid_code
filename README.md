@@ -21,15 +21,20 @@ tailored for structured UAV mapping scenarios. DSP helps predict reconstruction 
 - [x] All data uploaded
 - [x] Release dataset SDK
 - [x] Release pip package
-- [ ] Release dataset splits
-- [ ] Add Nerfstudio support
-- [ ] Dataset download script
-- [ ] Release DSP code (closer to conference)
+- [x] Release DSP code
+- [ ] Add Nerfstudio support (after conference)
 
 # Installation
 Easiest way to install this package is to use pip:
 ```bash
+# just for dataset interface
 pip install claravid 
+
+# for dataset interface + complexity profiles of a scene (you will likely want this)
+pip install claravid[dsp]
+
+# for dataset interface + complexity profiles of a scene + examples (includes open3d)
+pip install claravid[all]
 ```
 
 Alternatively you can clone the repository and install it manually:
@@ -37,10 +42,26 @@ Alternatively you can clone the repository and install it manually:
 git clone https://github.com/rdbch/claravid_code.git
 pip install -e . 
 
+pip install -e .[dsp] 
+
+pip install -e .[all] 
+
 ```
 
 # Examples
-We provide 2 examples for this code base:
+## Compute complexity scene profile
+We provide a script for **computing** and **plotting** the complexity profile of a given scene. We support currently 3 complexity functions: delentropy, GLCM entropy and Pixel Shannon entropy.
+See [./scene_complexity_profile.py](./scene_complexity_profile.py) for more details regarding the implementation.
+```bash
+# compute and generate DSP plot
+$ python ./scripts/compute_complexity_profile.py --input /path/to/input --pattern *.jpg --complexity_func delent
+
+# compute DSP for scene 003_urban_1
+$ python ./scripts/compute_complexity_profile.py --input /path/to/claravid/003_urban_1 --pattern left_rgb/**/*.jpg --complexity_func delent
+```
+
+## Dataset interface
+We provide 2 examples for this dataset code base:
 ### Dataset interface
 In [examples/demo.ipynb](examples/demo.ipynb) we provide an example for loading and exploring a scene and configuring the various flight parameters and modalities: 
 ```python

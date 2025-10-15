@@ -1,3 +1,8 @@
+"""
+Author: Radu Beche (Technical University of Cluj-Napoca, UTCN)
+Licensed under the MIT License.
+"""
+
 import numpy as np
 from dataclasses import dataclass, fields as dataclass_fields
 from pathlib import Path

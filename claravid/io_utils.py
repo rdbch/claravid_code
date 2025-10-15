@@ -1,3 +1,8 @@
+"""
+Author: Radu Beche (Technical University of Cluj-Napoca, UTCN)
+Licensed under the MIT License.
+"""
+
 import json
 import numpy as np
 from PIL import Image

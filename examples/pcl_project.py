@@ -1,4 +1,9 @@
-"""Example of projecting the global point cloud into images."""
+"""
+Author: Radu Beche (Technical University of Cluj-Napoca, UTCN)
+Licensed under the MIT License.
+"""
+
+# Sample script for projecting a global point cloud into images
 import numpy as np
 import matplotlib.pyplot as plt
 from PIL import Image
