@@ -5,8 +5,8 @@ Licensed under the MIT License.
 
 # script for computing complexity profile for a set of images
 import argparse
-from claravid import csp
 from pathlib import Path
+from claravid import scene_complexity_profile as xsp
 
 
 def collect_image_paths(input_path: Path, pattern: str = "*.png") -> list[Path]:
@@ -60,15 +60,16 @@ if __name__ == '__main__':
     print("Number of images found:", len(image_list))
 
     # merge params
-    cfg = csp.ComplexityProfileConfig()
+    cfg = xsp.ComplexityProfileConfig()
     for k, v in vars(args).items():
         if hasattr(cfg, k):
             setattr(cfg, k, v)
-        elif k not in ["input"]:
+        elif k not in ["input", "pattern"]:
             print(f"Warning: Unknown config parameter '{k}'")
 
     # compute complexity profile
-    cp = csp.ComplexityProfile(cfg)
+    cp = xsp.ComplexityProfile(cfg)
+    print("Computing complexity profile...")
     cp.process(image_list)
 
     print("Done")
