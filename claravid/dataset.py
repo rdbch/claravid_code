@@ -1,7 +1,7 @@
 import numpy as np
 from dataclasses import dataclass, fields as dataclass_fields
 from pathlib import Path
-from typing import List, Literal, Union
+from typing import Literal, Union
 from . import io_utils
 
 
@@ -166,7 +166,7 @@ class ClaravidDataset:
             fields: list[str],
             viewpoint_altitude: list[Literal["low", "mid", "high"]],
             viewpoint_direction: list[Literal["h", "v"]],
-    ) -> List[dict[str, Path]]:
+    ) -> list[dict[str, Path]]:
         """
         Get paths to all files in the dataset based on missions, fields, altitude and direction.
         Typically you will override this method to customize the dataset or load just parts of it.
